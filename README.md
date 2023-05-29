@@ -2,7 +2,7 @@
 
 ![brownie illustration](brownie.jpeg)
 
-## A tiny PHP Routing Framework
+## A Tiny PHP Routing Framework
 
 BrowniePHP is a lightweight PHP routing framework, inspired by Express.js, that provides a simple and intuitive way to handle HTTP requests and define routes for your web applications. It aims to be minimalistic yet powerful, allowing you to quickly build RESTful APIs or handle various HTTP methods with ease.
 
@@ -82,6 +82,34 @@ $router->run();
 This will match the incoming request to the defined routes and execute the corresponding route handler or middleware functions.
 
 Inside the route handler or middleware functions, the request context is available as an associative array named `$ctx`. You can access various request properties such as method, path, query parameters, request body, and headers through this array.
+
+## Utils Class
+
+The Utils class in BrowniePHP provides a collection of utility methods that offer functionality commonly used in web development. Here are some key methods available in the class:
+
+`send_json($data)`
+
+This method sends JSON-encoded data as a response to the client. It supports JSONP by checking for a callback parameter in the request URL. If the parameter is present, the response is wrapped in a callback function. Otherwise, the response is sent as standard JSON. This method can be used to send JSON data back to the client in a consistent and structured manner.
+
+`enable_cors($origin = '*')`
+
+This method enables Cross-Origin Resource Sharing (CORS) by setting the necessary headers in the response. It allows requests from different origins to access the resources of your application. The $origin parameter specifies the allowed origin or origins. By default, it is set to '\*', allowing requests from any origin. The method sets the `Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Headers, and Access-Control-Allow-Methods` headers accordingly.
+
+### Error Handlers
+
+The Utils class also includes error handler methods that simplify the process of returning error responses. These methods facilitate sending error messages and appropriate HTTP status codes to the client.
+
+`server_error($error_type, $description, $status_code)`
+
+This method generates an error response with a specified error type, description, and HTTP status code. It constructs an associative array with the error details and sets the appropriate status code using http_response_code(). The error response is then sent as JSON using the send_json method.
+
+`unknown_error()`
+
+The unknown_error method is a convenience wrapper for the server_error method. It simplifies handling internal server errors by providing a pre-defined error type, description, and HTTP status code. It calls server_error internally, sending an error response with the appropriate details.
+
+`not_found()`
+
+Similar to the unknown_error method, not_found is a convenience wrapper for the server_error method. It simplifies handling resource not found errors by providing a pre-defined error type, description, and HTTP status code. It calls server_error internally, sending an error response with the appropriate details.
 
 ## Contributing
 
