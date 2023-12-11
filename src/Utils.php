@@ -40,6 +40,12 @@ class Utils
     self::server_error('not found', 'resource not found', 404);
   }
 
+  public static function ok()
+  {
+    http_response_code(200);
+    self::terminate();
+  }
+
   public static function read_env($file = '.env')
   {
     $handle = fopen($file, 'r');
@@ -61,11 +67,11 @@ class Utils
     return $vars;
   }
 
-  public static function show_view(string $view, array $params)
+  public static function show_view(string $view, array $params, ?string $path = 'src/views')
   {
     extract($params);
-    $view = 'src/views/' . $view . '.php';
-    include 'src/views/template.php';
+    $view = self::ensure_end_slash($path) . $view . '.php';
+    include self::ensure_end_slash($path) . 'template.php';
     Utils::terminate();
   }
 
@@ -94,5 +100,13 @@ class Utils
     if (!defined('UNIT_TESTING')) {
       die();
     }
+  }
+
+  private static function ensure_end_slash(string $path)
+  {
+    if (!str_ends_with($path, '/')) {
+      $path = $path . '/';
+    }
+    return $path;
   }
 }
