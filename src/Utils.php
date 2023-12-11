@@ -9,13 +9,15 @@ class Utils
   public static function send_json($data)
   {
     header('Content-Type: text/javascript; charset=utf8');
-    if (isset($_GET['callback'])) {
-      echo $_GET['callback'] . '(' . json_encode($data) . ');';
+    $callback = isset($_GET['callback']) ? $_GET['callback'] : '';
+
+    // Sanitize the callback function name
+    if (preg_match('/^[a-zA-Z0-9_]+$/', $callback)) {
+      echo $callback . '(' . json_encode($data) . ');';
     } else {
       header('Content-Type: application/json');
       echo json_encode($data, JSON_UNESCAPED_SLASHES);
     }
-    Utils::terminate();
   }
 
   public static function server_error(
