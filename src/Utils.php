@@ -18,6 +18,7 @@ class Utils
       header('Content-Type: application/json');
       echo json_encode($data, JSON_UNESCAPED_SLASHES);
     }
+    self::terminate();
   }
 
   public static function server_error(
