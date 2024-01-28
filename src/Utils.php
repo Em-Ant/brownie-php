@@ -92,7 +92,7 @@ class Utils
   {
     header("Access-Control-Allow-Origin: $origin");
     header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Allow-Headers: content-type,accept,origin');
+    header('Access-Control-Allow-Headers: x-requested-with,content-type,accept,origin,authorization');
     header('Access-Control-Allow-Methods: GET,POST,OPTIONS');
   }
 
