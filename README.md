@@ -1,6 +1,6 @@
 # BrowniePHP
 
-![brownie illustration](brownie.jpeg)
+![brownie illustration](brownie.png)
 
 ## A Tiny PHP Routing Framework
 
